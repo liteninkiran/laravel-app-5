@@ -16,8 +16,9 @@ class CompaniesController extends Controller
     {
         $companies = Company::all();
         $showFilter = false;
+        $companyName = null;
 
-        return view('companies.index', compact('companies', 'showFilter'));
+        return view('companies.index', compact('companies', 'showFilter', 'companyName'));
     }
 
     public function create()

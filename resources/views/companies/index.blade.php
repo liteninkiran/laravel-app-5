@@ -25,7 +25,7 @@
                         name="company_name"
                         type="text"
                         class="form-control @error('company_name') is-invalid @enderror"
-                        value="{{ old('company_name') }}"
+                        value="{{ $companyName }}"
                         autocomplete="company_name"
                         autofocus>
 
