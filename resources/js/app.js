@@ -30,3 +30,40 @@ Vue.component('example-component', require('./components/ExampleComponent.vue').
 const app = new Vue({
     el: '#app',
 });
+
+
+
+var coll = document.getElementsByClassName("collapsible");
+var i;
+
+for (i = 0; i < coll.length; i++)
+{
+    coll[i].addEventListener("click", function()
+    {
+        this.classList.toggle("active");
+
+        var active = this.classList.search(" active") > 0;
+        var content = this.nextElementSibling;
+
+        if(active)
+        {
+            content.style.display = "none";
+        }
+        else
+        {
+            content.style.display = "block";
+        }
+
+
+/*
+        if(content.style.display === "block")
+        {
+            content.style.display = "none";
+        }
+        else
+        {
+            content.style.display = "block";
+        }
+*/
+    });
+}
