@@ -14,7 +14,8 @@ class CompaniesController extends Controller
 
     public function index()
     {
-        $companies = Company::orderBy('company_name')->get();
+        $page = config('pagination.recordsPerPage');
+        $companies = Company::orderBy('company_name')->paginate($page);
         $showFilter = false;
         $companyName = null;
 

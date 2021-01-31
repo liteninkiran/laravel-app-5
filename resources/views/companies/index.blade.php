@@ -6,10 +6,9 @@
 
     <h1>Companies</h1>
 
-    <a href="{{ route('company.create') }}">Add New Company</a>
-    <br>
+    <a href="{{ route('company.create') }}" class="pl-1">Add New Company</a>
 
-    <button id="filter" type="button" class="collapsible coll-parent">Filters</button>
+    <button id="filter" type="button" class="collapsible p-1">Filters</button>
 
     <div id="filter-content" class="collapse-content border @if(!$showFilter) hidden @endif">
 
@@ -49,14 +48,6 @@
     </div>
 
     <div class="mt-4">
-{{-- 
-        @foreach($companies as $company)
-
-            <a href="{{ route('company.edit', $company) }}">{{ $company->company_name }}</a>
-            <br>
-
-        @endforeach --}}
-
 
         <table class="table" id="datatable">
             <thead>
@@ -77,9 +68,18 @@
             </tbody>
         </table>
 
+        @if($companies->total() > $companies->perPage())
+            <hr class="border border-dark">
+            <p>Records {{ $companies->firstItem() }} - {{ $companies->lastItem() }} of {{ $companies->total() }}</p>
+        @endif
 
     </div>
 
+    <div class="row">
+        <div class="col-12 d-flex justify-content-left mt-5">
+            {{ $companies->links() }}
+        </div>
+    </div>
 
 </div>
 
