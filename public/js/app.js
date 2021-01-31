@@ -1940,6 +1940,22 @@ if (table != null) {
   }
 }
 
+$('#deleteModal').on('hidden.bs.modal', function (event) {
+  var modal = $(this);
+  var div = modal.find('.modal-body')[0];
+  div.innerText = '';
+});
+$('#deleteModal').on('shown.bs.modal', function (event) {
+  var button = $(event.relatedTarget);
+  var company_id = button.data('companyid');
+  var company_desc = button.data('companydesc');
+  var modal = $(this);
+  var div = modal.find('.modal-body')[0];
+  div.innerHTML = 'Select DELETE If you really want to delete <strong>' + company_desc + '</strong>';
+  modal.find('.modal-footer #company_id').val(company_id);
+  modal.find('form').attr('action', '/company/' + company_id);
+});
+
 /***/ }),
 
 /***/ "./resources/js/bootstrap.js":

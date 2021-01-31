@@ -66,9 +66,7 @@
                     <th>Phone Number</th>
 
                     {{-- HEADER: ACTION BUTTONS / LINKS --}}
-                    <th style="width:10%"></th>
-                    <th style="width:10%"></th>
-                    <th style="width:10%"></th>
+                    <th>Actions</th>
 
                 </tr>
 
@@ -89,17 +87,18 @@
                         <td>{{ $company->phone }}</td>
 
                         {{-- ACTION BUTTONS / LINKS --}}
-                        <td class="action"><a class="btn btn-primary" href="{{ route('company.show', $company) }}" role="button" style="width:75px">Show</a></td>
-                        <td class="action"><a class="btn btn-secondary" href="{{ route('company.edit', $company) }}" role="button" style="width:75px">Edit</a></td>
+                        <td class="action">
 
-                        <td class="cls1 cls2 action">
-                            <form action="{{ route('company.destroy', $company) }}" method="post">
-                                @csrf
-                                @method('DELETE')
-                                <div class="flex justify-end">
-                                    <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete {{ $company->company_name }}?')" style="width:75px">Delete</button>
-                                </div>
-                            </form>
+                            <a href="{{ route('company.show', $company) }}"><i class="fa fa-eye px-1"></i></a>
+
+                            {{-- @can('edit', $company) --}}
+                                <a href="{{ route('company.edit', $company) }}"><i class="fa fa-edit px-1"></i></a>
+                            {{-- @endcan --}}
+
+                            {{-- @can('delete', $company) --}}
+                                <a href="#"  data-toggle="modal" data-target="#deleteModal" data-companyid="{{ $company->id }}" data-companydesc="{{ $company->company_name }}"><i class="fas fa-trash-alt px-1"></i></a>
+                            {{-- @endcan --}}
+
                         </td>
 
                     </tr>
@@ -109,6 +108,47 @@
             </tbody>
  
         </table>
+
+        <!-- Delete Confirmation Modal Dialog Box -->
+        <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+
+            <div class="modal-dialog" role="document">
+
+                <div class="modal-content">
+
+                    <div class="modal-header">
+
+                        <h5 class="modal-title" id="exampleModalLabel">Confirm Delete</h5>
+
+                        <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">×</span>
+                        </button>
+
+                    </div>
+
+                    <div class="modal-body"></div>
+
+                    <div class="modal-footer">
+
+                        <form method="POST" action="/company/" id="modal-form">
+
+                            @csrf
+                            @method('DELETE')
+
+                            <a class="btn btn-danger" onclick="$(this).closest('form').submit();">Delete</a>
+
+                        </form>
+
+                        <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
 
         <div class="container">
 
@@ -135,3 +175,4 @@
 
 
 @endsection
+
