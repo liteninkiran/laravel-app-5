@@ -49,38 +49,89 @@
 
     <div class="mt-4">
 
-        <table class="table" id="datatable">
+        {{-- ID = data-table: JavaScript will add OnClick event handlers for cells to
+                              link out to the URL using the data-url attribute from the 
+                              TR element --}}
+        <table class="table border table-hover" id="data-table">
+
+            {{-- HEADER --}}
             <thead>
+
                 <tr>
+
+                    {{-- HEADER: DATA --}}
                     <th>Company Name</th>
                     <th>Location</th>
+                    <th>Postcode</th>
                     <th>Phone Number</th>
+
+                    {{-- HEADER: ACTION BUTTONS / LINKS --}}
+                    <th style="width:10%"></th>
+                    <th style="width:10%"></th>
+                    <th style="width:10%"></th>
+
                 </tr>
+
             </thead>
+
+            {{-- BODY --}}
             <tbody>
+
                 @foreach($companies as $company)
-                    <tr>
+
+                    {{-- NEW RECORD --}}
+                    <tr data-url="{{ $company->url }}">
+
+                        {{-- DATA --}}
                         <td>{{ $company->company_name }}</td>
                         <td>{{ $company->address_line_5 }}</td>
+                        <td>{{ $company->post_code }}</td>
                         <td>{{ $company->phone }}</td>
+
+                        {{-- ACTION BUTTONS / LINKS --}}
+                        <td class="action"><a class="btn btn-primary" href="{{ route('company.show', $company) }}" role="button" style="width:75px">Show</a></td>
+                        <td class="action"><a class="btn btn-secondary" href="{{ route('company.edit', $company) }}" role="button" style="width:75px">Edit</a></td>
+
+                        <td class="cls1 cls2 action">
+                            <form action="{{ route('company.destroy', $company) }}" method="post">
+                                @csrf
+                                @method('DELETE')
+                                <div class="flex justify-end">
+                                    <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete {{ $company->company_name }}?')" style="width:75px">Delete</button>
+                                </div>
+                            </form>
+                        </td>
+
                     </tr>
+
                 @endforeach
+ 
             </tbody>
+ 
         </table>
 
-        @if($companies->total() > $companies->perPage())
-            <hr class="border border-dark">
-            <p>Records {{ $companies->firstItem() }} - {{ $companies->lastItem() }} of {{ $companies->total() }}</p>
-        @endif
+        <div class="container">
 
-    </div>
+            <div class="row">
 
-    <div class="row">
-        <div class="col-12 d-flex justify-content-left mt-5">
-            {{ $companies->links() }}
+                {{-- PAGINATOR --}}
+                {{ $companies->links() }}
+
+                {{-- RECORD COUNT --}}
+                @if($companies->total() > $companies->perPage())
+                    <p class="ml-auto">Showing {{ $companies->firstItem() }} - {{ $companies->lastItem() }} of {{ $companies->total() }} records</p>
+                @else
+                    <p class="ml-auto">Showing {{ $companies->total() }} records</p>
+                @endif
+
+            </div>
+
         </div>
+
     </div>
+
 
 </div>
+
 
 @endsection

@@ -41,3 +41,46 @@ const app = new Vue({
         filterContent.classList.toggle("hidden");
         filter.classList.toggle("active");
     });
+
+
+
+    var table = document.getElementById("data-table");
+
+    if(table != null)
+    {
+        // Loop through table rows
+        for(var i = 0; i < table.rows.length; i++)
+        {
+            // Store row
+            var row = table.rows[i];
+
+            // Loop through table columns
+            for (var j = 0; j < row.cells.length; j++)
+            {
+                // Store the cell
+                var cell = table.rows[i].cells[j];
+
+                // Check we don't have a cell with an "action" class (i.e. show/edit/delete)
+                if(!cell.classList.contains('action'))
+                {
+                    // Add an "On Click" event to the cell
+                    cell.onclick = function ()
+                    {
+                        // Store the parent row
+                        var rowEl = this.parentElement;
+
+                        // Find the URL
+                        var url = rowEl.getAttribute('data-url');
+
+                        // If we have one, open it
+                        if(url != '' && url != null)
+                        {
+                            window.open(url);
+                        }
+                    }
+                }
+            };
+        }
+    }
+
+

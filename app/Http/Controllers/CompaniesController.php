@@ -38,7 +38,7 @@ class CompaniesController extends Controller
             'address_line_3' => '',
             'address_line_4' => '',
             'address_line_5' => '',
-            'postcode'       => '',
+            'post_code'      => '',
             'phone'          => '',
             'url'            => 'url|nullable'
         ]);
@@ -72,7 +72,7 @@ class CompaniesController extends Controller
             'address_line_3' => '',
             'address_line_4' => '',
             'address_line_5' => '',
-            'postcode'       => '',
+            'post_code'      => '',
             'phone'          => '',
             'url'            => 'url|nullable'
         ]);
@@ -86,7 +86,8 @@ class CompaniesController extends Controller
 
     public function destroy(Company $company)
     {
-        echo "Destroy";
-        //return view('company');
+        $company->delete();
+
+        return back();
     }    
 }

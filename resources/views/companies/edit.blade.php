@@ -142,16 +142,16 @@
                 <!-- POSTCODE -->
                 <div class="form-group row">
 
-                    <label for="postcode" class="col-md-4 col-form-label pl-0">Postcode</label>
-                    <input id="postcode"
-                           name="postcode"
+                    <label for="post_code" class="col-md-4 col-form-label pl-0">Postcode</label>
+                    <input id="post_code"
+                           name="post_code"
                            type="text"
-                           class="form-control @error('postcode') is-invalid @enderror"
-                           value="{{ $company->postcode }}"
-                           autocomplete="postcode"
+                           class="form-control @error('post_code') is-invalid @enderror"
+                           value="{{ $company->post_code }}"
+                           autocomplete="post_code"
                            autofocus>
 
-                    @error('postcode')
+                    @error('post_code')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
                         </span>
