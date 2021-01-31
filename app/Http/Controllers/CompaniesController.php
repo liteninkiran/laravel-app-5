@@ -42,26 +42,48 @@ class CompaniesController extends Controller
             'url'            => 'url|nullable'
         ]);
 
-        // Store post
+        // Store data
         auth()->user()->companies()->create($data);
 
         // Redirect to index
         return redirect(route('company.index'));
     }
 
-    public function show($company)
+    public function show(Company $company)
     {
         echo "Show";
         //return view('company');
     }
 
-    public function edit($company)
+    public function edit(Company $company)
     {
-        echo "Edit";
-        //return view('company');
+        return view('companies.edit', compact('company'));
     }
 
-    public function destroy($company)
+    public function update(Request $request, Company $company)
+    {
+        // Store request data
+        $data = $request->validate(
+        [
+            'company_name'   => 'required',
+            'address_line_1' => '',
+            'address_line_2' => '',
+            'address_line_3' => '',
+            'address_line_4' => '',
+            'address_line_5' => '',
+            'postcode'       => '',
+            'phone'          => '',
+            'url'            => 'url|nullable'
+        ]);
+
+        // Store data
+        $company->update($data);
+
+        // Redirect to index
+        return redirect(route('company.index'));
+    }
+
+    public function destroy(Company $company)
     {
         echo "Destroy";
         //return view('company');

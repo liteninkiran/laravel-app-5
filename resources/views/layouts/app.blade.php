@@ -32,8 +32,17 @@
                 </button>
 
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mr-auto">
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('company.index') }}">Company</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="">Recruiter</a>
+                        </li>
 
                     </ul>
 

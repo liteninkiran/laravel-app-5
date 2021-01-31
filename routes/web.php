@@ -30,6 +30,7 @@ Route::get   ('/company/create'        , [CompaniesController::class, 'create' ]
 Route::post  ('/company'               , [CompaniesController::class, 'store'  ])->name('company.store'  );
 Route::get   ('/company/{company}'     , [CompaniesController::class, 'show'   ])->name('company.show'   );
 Route::get   ('/company/{company}/edit', [CompaniesController::class, 'edit'   ])->name('company.edit'   );
+Route::put   ('/company/{company}'     , [CompaniesController::class, 'update' ])->name('company.update' );
 Route::delete('/company/{company}'     , [CompaniesController::class, 'destroy'])->name('company.destroy');
 
 Route::post  ('/company/filter'        , [CompanyFiltersController::class, 'index'])->name('companyFilter.index');

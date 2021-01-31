@@ -9,9 +9,9 @@
     <a href="{{ route('company.create') }}">Add New Company</a>
     <br>
 
-    <button type="button" class="collapsible coll-parent">Filters</button>
+    <button id="filter" type="button" class="collapsible coll-parent">Filters</button>
 
-    <div class="collapse-content border @if(!$showFilter) hidden @endif">
+    <div id="filter-content" class="collapse-content border @if(!$showFilter) hidden @endif">
 
         <form action="{{ route('companyFilter.index') }}" enctype="multipart/form-data" method="post">
 
@@ -52,7 +52,7 @@
 
         @foreach($companies as $company)
 
-            {{ $company->company_name }}
+            <a href="{{ route('company.edit', $company) }}">{{ $company->company_name }}</a>
             <br>
 
         @endforeach
