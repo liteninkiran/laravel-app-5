@@ -14,7 +14,7 @@ class CompaniesController extends Controller
 
     public function index()
     {
-        $companies = Company::all();
+        $companies = Company::orderBy('company_name')->get();
         $showFilter = false;
         $companyName = null;
 

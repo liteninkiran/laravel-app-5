@@ -49,13 +49,34 @@
     </div>
 
     <div class="mt-4">
-
+{{-- 
         @foreach($companies as $company)
 
             <a href="{{ route('company.edit', $company) }}">{{ $company->company_name }}</a>
             <br>
 
-        @endforeach
+        @endforeach --}}
+
+
+        <table class="table" id="datatable">
+            <thead>
+                <tr>
+                    <th>Company Name</th>
+                    <th>Location</th>
+                    <th>Phone Number</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach($companies as $company)
+                    <tr>
+                        <td>{{ $company->company_name }}</td>
+                        <td>{{ $company->address_line_5 }}</td>
+                        <td>{{ $company->phone }}</td>
+                    </tr>
+                @endforeach
+            </tbody>
+        </table>
+
 
     </div>
 
