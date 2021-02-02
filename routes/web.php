@@ -26,7 +26,7 @@ Auth::routes();
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 
 Route::get   ('/company'               , [CompaniesController::class, 'index'  ])->name('company.index'  );
-Route::get   ('/company/create'        , [CompaniesController::class, 'create' ])->name('company.create' );
+Route::get   ('/company/create'        , [CompaniesController::class, 'create' ])->name('company.create' )->middleware('can:isAdmin');
 Route::post  ('/company'               , [CompaniesController::class, 'store'  ])->name('company.store'  );
 Route::get   ('/company/{company}'     , [CompaniesController::class, 'show'   ])->name('company.show'   );
 Route::get   ('/company/{company}/edit', [CompaniesController::class, 'edit'   ])->name('company.edit'   );

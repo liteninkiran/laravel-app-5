@@ -4,9 +4,19 @@
 
 <div class="container">
 
-    <h1>Companies</h1>
+    <div class="row py-lg-2">
 
-    <a href="{{ route('company.create') }}" class="pl-1">Add New Company</a>
+        <div class="col-md-6">
+            <h1>Companies</h1>
+        </div>
+
+        {{-- @can('create', App\Models\Company::class) --}}
+            <div class="col-md-6">
+                <a href="{{ route('company.create') }}" class="btn btn-primary btn-lg float-md-right" role="button" aria-pressed="true">Add New Company</a>
+            </div>
+        {{-- @endcan --}}
+
+    </div>
 
     <button id="filter" type="button" class="collapsible p-1">Filters</button>
 
@@ -161,7 +171,11 @@
                 @if($companies->total() > $companies->perPage())
                     <p class="ml-auto">Showing {{ $companies->firstItem() }} - {{ $companies->lastItem() }} of {{ $companies->total() }} records</p>
                 @else
-                    <p class="ml-auto">Showing {{ $companies->total() }} records</p>
+                    @if($companies->total() == 1)
+                        <p class="ml-auto">Showing {{ $companies->total() }} record</p>
+                    @else
+                        <p class="ml-auto">Showing {{ $companies->total() }} records</p>
+                    @endif
                 @endif
 
             </div>
