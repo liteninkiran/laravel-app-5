@@ -27,11 +27,11 @@ Route::get('/home', [HomeController::class, 'index'])->name('home');
 
 Route::get   ('/company'               , [CompaniesController::class, 'index'  ])->name('company.index'  );
 Route::get   ('/company/create'        , [CompaniesController::class, 'create' ])->name('company.create' )->middleware('can:isAdmin');
-Route::post  ('/company'               , [CompaniesController::class, 'store'  ])->name('company.store'  );
+Route::post  ('/company'               , [CompaniesController::class, 'store'  ])->name('company.store'  )->middleware('can:isAdmin');
 Route::get   ('/company/{company}'     , [CompaniesController::class, 'show'   ])->name('company.show'   );
-Route::get   ('/company/{company}/edit', [CompaniesController::class, 'edit'   ])->name('company.edit'   );
-Route::put   ('/company/{company}'     , [CompaniesController::class, 'update' ])->name('company.update' );
-Route::delete('/company/{company}'     , [CompaniesController::class, 'destroy'])->name('company.destroy');
+Route::get   ('/company/{company}/edit', [CompaniesController::class, 'edit'   ])->name('company.edit'   )->middleware('can:isAdmin');
+Route::put   ('/company/{company}'     , [CompaniesController::class, 'update' ])->name('company.update' )->middleware('can:isAdmin');
+Route::delete('/company/{company}'     , [CompaniesController::class, 'destroy'])->name('company.destroy')->middleware('can:isAdmin');
 
 Route::post  ('/company/filter'        , [CompanyFiltersController::class, 'index'])->name('companyFilter.index');
 

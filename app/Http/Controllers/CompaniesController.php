@@ -52,13 +52,14 @@ class CompaniesController extends Controller
 
     public function show(Company $company)
     {
-        echo "Show";
-        //return view('company');
+        $edit = false;
+        return view('companies.edit', compact('company'), compact('edit'));
     }
 
     public function edit(Company $company)
     {
-        return view('companies.edit', compact('company'));
+        $edit = true;
+        return view('companies.edit', compact('company'), compact('edit'));
     }
 
     public function update(Request $request, Company $company)

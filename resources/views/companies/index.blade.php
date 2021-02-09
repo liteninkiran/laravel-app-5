@@ -6,20 +6,24 @@
 
     <div class="row py-lg-2">
 
+        {{-- Page Title --}}
         <div class="col-md-6">
             <h1>Companies</h1>
         </div>
 
-        {{-- @can('create', App\Models\Company::class) --}}
+        {{-- Add New Record --}}
+        @can('isAdmin')
             <div class="col-md-6">
                 <a href="{{ route('company.create') }}" class="btn btn-primary btn-lg float-md-right" role="button" aria-pressed="true">Add New Company</a>
             </div>
-        {{-- @endcan --}}
+        @endcan
 
     </div>
 
+    {{-- Toggle Filters Button --}}
     <button id="filter" type="button" class="collapsible p-1">Filters</button>
 
+    {{-- Filters --}}
     <div id="filter-content" class="collapse-content border @if(!$showFilter) hidden @endif">
 
         <form action="{{ route('companyFilter.index') }}" enctype="multipart/form-data" method="post">
@@ -46,78 +50,89 @@
 
             </div>
 
-            <!-- SUBMIT -->
-            <div class="ml-3 mb-4">
+            <!-- SUBMIT / RESET -->
+            <div class="mx-3 mb-4">
+                <button class="btn btn-primary">Apply Filters</button>
 
-                <button class="btn btn-primary">Apply Filter</button>
-
+                @if($showFilter)
+                    <a class="btn btn-secondary float-right" href="{{ route('company.index') }}">Reset Filters</a>
+                @endif
             </div>
 
         </form>
 
     </div>
 
+    {{-- Records! --}}
     <div class="mt-4">
 
-        {{-- ID = data-table: JavaScript will add OnClick event handlers for cells to
-                              link out to the URL using the data-url attribute from the 
-                              TR element --}}
-        <table class="table border table-hover" id="data-table">
+        @if(count($companies) > 0)
 
-            {{-- HEADER --}}
-            <thead>
+            {{-- ID = data-table: JavaScript will add OnClick event handlers for cells to
+                                link out to the URL using the data-url attribute from the 
+                                TR element --}}
+            <table class="table border table-hover" id="data-table">
 
-                <tr>
+                {{-- HEADER --}}
+                <thead>
 
-                    {{-- HEADER: DATA --}}
-                    <th>Company Name</th>
-                    <th>Location</th>
-                    <th>Postcode</th>
-                    <th>Phone Number</th>
+                    <tr>
 
-                    {{-- HEADER: ACTION BUTTONS / LINKS --}}
-                    <th>Actions</th>
+                        {{-- HEADER: DATA --}}
+                        <th>Company Name</th>
+                        <th>Location</th>
+                        <th>Postcode</th>
+                        <th>Phone Number</th>
 
-                </tr>
-
-            </thead>
-
-            {{-- BODY --}}
-            <tbody>
-
-                @foreach($companies as $company)
-
-                    {{-- NEW RECORD --}}
-                    <tr data-url="{{ $company->url }}">
-
-                        {{-- DATA --}}
-                        <td>{{ $company->company_name }}</td>
-                        <td>{{ $company->address_line_5 }}</td>
-                        <td>{{ $company->post_code }}</td>
-                        <td>{{ $company->phone }}</td>
-
-                        {{-- ACTION BUTTONS / LINKS --}}
-                        <td class="action">
-
-                            <a href="{{ route('company.show', $company) }}"><i class="fa fa-eye px-1"></i></a>
-
-                            {{-- @can('edit', $company) --}}
-                                <a href="{{ route('company.edit', $company) }}"><i class="fa fa-edit px-1"></i></a>
-                            {{-- @endcan --}}
-
-                            {{-- @can('delete', $company) --}}
-                                <a href="#"  data-toggle="modal" data-target="#deleteModal" data-companyid="{{ $company->id }}" data-companydesc="{{ $company->company_name }}"><i class="fas fa-trash-alt px-1"></i></a>
-                            {{-- @endcan --}}
-
-                        </td>
+                        {{-- HEADER: ACTION BUTTONS / LINKS --}}
+                        <th>Actions</th>
 
                     </tr>
 
-                @endforeach
- 
-            </tbody>
- 
-        </table>
+                </thead>
+
+                {{-- BODY --}}
+                <tbody>
+
+                    @foreach($companies as $company)
+
+                        {{-- NEW RECORD --}}
+                        <tr data-url="{{ $company->url }}">
+
+                            {{-- DATA --}}
+                            <td>{{ $company->company_name }}</td>
+                            <td>{{ $company->address_line_5 }}</td>
+                            <td>{{ $company->post_code }}</td>
+                            <td>{{ $company->phone }}</td>
+
+                            {{-- ACTION BUTTONS / LINKS --}}
+                            <td class="action">
+
+                                <a href="{{ route('company.show', $company) }}"><i class="fa fa-eye px-1"></i></a>
+
+                                @can('isAdmin')
+                                    <a href="{{ route('company.edit', $company) }}"><i class="fa fa-edit px-1"></i></a>
+                                @endcan
+
+                                @can('isAdmin')
+                                    <a href="#"  data-toggle="modal" data-target="#deleteModal" data-companyid="{{ $company->id }}" data-companydesc="{{ $company->company_name }}"><i class="fas fa-trash-alt px-1"></i></a>
+                                @endcan
+
+                            </td>
+
+                        </tr>
+
+                    @endforeach
+    
+                </tbody>
+    
+            </table>
+
+        @else
+
+            <p>No data to display</p>
+
+        @endif
 
         <!-- Delete Confirmation Modal Dialog Box -->
         <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -159,34 +174,36 @@
 
         </div>
 
+        @if(count($companies) > 0)
 
-        <div class="container">
+            <div class="container">
 
-            <div class="row">
+                <div class="row">
 
-                {{-- PAGINATOR --}}
-                {{ $companies->links() }}
+                    {{-- PAGINATOR --}}
+                    {{ $companies->links() }}
 
-                {{-- RECORD COUNT --}}
-                @if($companies->total() > $companies->perPage())
-                    <p class="ml-auto">Showing {{ $companies->firstItem() }} - {{ $companies->lastItem() }} of {{ $companies->total() }} records</p>
-                @else
-                    @if($companies->total() == 1)
-                        <p class="ml-auto">Showing {{ $companies->total() }} record</p>
+                    {{-- RECORD COUNT --}}
+                    @if($companies->total() > $companies->perPage())
+                        <p class="ml-auto">Showing {{ $companies->firstItem() }} - {{ $companies->lastItem() }} of {{ $companies->total() }} records</p>
                     @else
-                        <p class="ml-auto">Showing {{ $companies->total() }} records</p>
+                        @if($companies->total() == 1)
+                            <p class="ml-auto">Showing {{ $companies->total() }} record</p>
+                        @else
+                            <p class="ml-auto">Showing {{ $companies->total() }} records</p>
+                        @endif
                     @endif
-                @endif
+
+                </div>
 
             </div>
 
-        </div>
+        @endif
 
     </div>
 
 
 </div>
-
 
 @endsection
 

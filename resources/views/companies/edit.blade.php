@@ -14,9 +14,11 @@
             <div class="col-8 offset-2">
 
                 <div class="row">
-
-                    <h1>Edit Company</h1>
-
+                    @if($edit)
+                        <h1>Edit Company</h1>
+                    @else
+                        <h1>View Company</h1>
+                    @endif
                 </div>
 
                 <!-- COMPANY NAME -->
@@ -29,7 +31,8 @@
                            class="form-control @error('company_name') is-invalid @enderror"
                            value="{{ $company->company_name }}"
                            autocomplete="company_name"
-                           autofocus>
+                           autofocus
+                           @if(!$edit) disabled @endif>
 
                     @error('company_name')
                         <span class="invalid-feedback" role="alert">
@@ -49,7 +52,7 @@
                            class="form-control @error('address_line_1') is-invalid @enderror"
                            value="{{ $company->address_line_1 }}"
                            autocomplete="address_line_1"
-                           autofocus>
+                           @if(!$edit) disabled @endif>
 
                     @error('address_line_1')
                         <span class="invalid-feedback" role="alert">
@@ -69,7 +72,7 @@
                            class="form-control @error('address_line_2') is-invalid @enderror"
                            value="{{ $company->address_line_2 }}"
                            autocomplete="address_line_2"
-                           autofocus>
+                           @if(!$edit) disabled @endif>
 
                     @error('address_line_2')
                         <span class="invalid-feedback" role="alert">
@@ -89,7 +92,7 @@
                            class="form-control @error('address_line_3') is-invalid @enderror"
                            value="{{ $company->address_line_3 }}"
                            autocomplete="address_line_3"
-                           autofocus>
+                           @if(!$edit) disabled @endif>
 
                     @error('address_line_3')
                         <span class="invalid-feedback" role="alert">
@@ -109,7 +112,7 @@
                            class="form-control @error('address_line_4') is-invalid @enderror"
                            value="{{ $company->address_line_4 }}"
                            autocomplete="address_line_4"
-                           autofocus>
+                           @if(!$edit) disabled @endif>
 
                     @error('address_line_4')
                         <span class="invalid-feedback" role="alert">
@@ -129,7 +132,7 @@
                            class="form-control @error('address_line_5') is-invalid @enderror"
                            value="{{ $company->address_line_5 }}"
                            autocomplete="address_line_5"
-                           autofocus>
+                           @if(!$edit) disabled @endif>
 
                     @error('address_line_5')
                         <span class="invalid-feedback" role="alert">
@@ -149,7 +152,7 @@
                            class="form-control @error('post_code') is-invalid @enderror"
                            value="{{ $company->post_code }}"
                            autocomplete="post_code"
-                           autofocus>
+                           @if(!$edit) disabled @endif>
 
                     @error('post_code')
                         <span class="invalid-feedback" role="alert">
@@ -169,7 +172,7 @@
                            class="form-control @error('phone') is-invalid @enderror"
                            value="{{ $company->phone }}"
                            autocomplete="phone"
-                           autofocus>
+                           @if(!$edit) disabled @endif>
 
                     @error('phone')
                         <span class="invalid-feedback" role="alert">
@@ -189,7 +192,7 @@
                            class="form-control @error('url') is-invalid @enderror"
                            value="{{ $company->url }}"
                            autocomplete="url"
-                           autofocus>
+                           @if(!$edit) disabled @endif>
 
                     @error('url')
                         <span class="invalid-feedback" role="alert">
@@ -201,9 +204,9 @@
 
                 <!-- SUBMIT -->
                 <div class="row pt-4">
-
-                    <button class="btn btn-primary">Submit</button>
-
+                    @if($edit)
+                        <button class="btn btn-primary">Submit</button>
+                    @endif
                 </div>
 
             </div>

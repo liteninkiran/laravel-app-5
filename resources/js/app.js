@@ -34,19 +34,20 @@ const app = new Vue({
 
     var filter = document.getElementById('filter');
 
-    filter.addEventListener("click", function()
+    if(filter)
     {
-
-        var filterContent = document.getElementById('filter-content');
-        filterContent.classList.toggle("hidden");
-        filter.classList.toggle("active");
-    });
-
-
+        filter.addEventListener("click", function()
+        {
+    
+            var filterContent = document.getElementById('filter-content');
+            filterContent.classList.toggle("hidden");
+            filter.classList.toggle("active");
+        });
+    }
 
     var table = document.getElementById("data-table");
 
-    if(table != null)
+    if(table)
     {
         // Loop through table rows
         for(var i = 0; i < table.rows.length; i++)
