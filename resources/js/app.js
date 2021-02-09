@@ -106,3 +106,16 @@ const app = new Vue({
         modal.find('form').attr('action', '/company/' + company_id);
     });
 
+
+    // Store input fields
+    var inputEls = document.querySelectorAll('input, select, textarea');
+    
+    // Check if one of them has the autofocus property
+    for(i = 0; i < inputEls.length; i++)
+    {
+        if(inputEls[i].autofocus && !inputEls[i].disabled)
+        {
+            inputEls[i].focus();
+            break;
+        }
+    }
