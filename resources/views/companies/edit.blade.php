@@ -2,6 +2,8 @@
 
 @section('content')
 
+<?php $backUrl = (url()->previous() == url()->current()) ? route('company.index') : url()->previous(); ?>
+
 <div class="container">
 
     <form action="{{ route('company.update', $company->id) }}" enctype="multipart/form-data" method="post">
@@ -202,11 +204,15 @@
 
                 </div>
 
-                <!-- SUBMIT -->
+                <!-- SUBMIT / CANCEL -->
                 <div class="row pt-4">
+
                     @if($edit)
                         <button class="btn btn-primary">Submit</button>
                     @endif
+
+                    <a href="<?= $backUrl ?>" class="btn btn-secondary ml-auto">Cancel</a>
+
                 </div>
 
             </div>
