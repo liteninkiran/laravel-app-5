@@ -78,6 +78,8 @@ class CompaniesController extends Controller
             'url'            => 'url|nullable'
         ]);
 
+        $data['user_id'] = auth()->user()->id;
+
         // Store data
         $company->update($data);
 

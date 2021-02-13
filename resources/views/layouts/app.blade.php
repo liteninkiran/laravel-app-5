@@ -42,7 +42,7 @@
                         </li>
 
                         <li class="nav-item">
-                            <a class="nav-link" href="">Recruiter</a>
+                            <a class="nav-link" href="{{ route('recruiter.index') }}">Recruiter</a>
                         </li>
 
                     </ul>
