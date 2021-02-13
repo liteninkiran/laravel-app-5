@@ -1,0 +1,15 @@
+
+    INSERT INTO roles
+        (
+         name
+        ,slug
+        ,created_at
+        ,updated_at
+        )
+
+    VALUES
+        ('Admin'    , 'admin'    , CURDATE(), CURDATE()),
+        ('Recruiter', 'recruiter', CURDATE(), CURDATE()),
+        ('User'     , 'user'     , CURDATE(), CURDATE());
+
+
