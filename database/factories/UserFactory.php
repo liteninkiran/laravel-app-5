@@ -23,6 +23,7 @@ class UserFactory extends Factory
      */
     public function definition()
     {
+        //$this->$faker->addProvider(new \Faker\Provider\en_GB\Person($this->$faker));
         return
         [
             'name' => $this->faker->name,

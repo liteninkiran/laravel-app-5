@@ -20,8 +20,11 @@ class CompanyFactory extends Factory
      *
      * @return array
      */
+
     public function definition()
     {
+        //$this->$faker->addProvider(new \Faker\Provider\en_GB\Person($this->$faker));
+        //$this->$faker->addProvider(new \Faker\Provider\en_GB\Address($this->$faker));
         return
         [
             'company_name'      => $this->faker->company,
@@ -33,4 +36,5 @@ class CompanyFactory extends Factory
             'url'               => $this->faker->url
         ];
     }
+
 }
