@@ -30,10 +30,11 @@ class CompanyFactory extends Factory
             'company_name'      => $this->faker->company,
             'address_line_1'    => $this->faker->streetAddress,
             'address_line_4'    => $this->faker->city,
-            'address_line_5'    => $this->faker->state,
+            'address_line_5'    => $this->faker->county,
             'post_code'         => $this->faker->postcode,
             'phone'             => $this->faker->phoneNumber,
-            'url'               => $this->faker->url
+            'url'               => $this->faker->url,
+            'user_id'           => '1'
         ];
     }
 
